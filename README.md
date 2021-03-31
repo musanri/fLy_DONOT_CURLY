@@ -2,4 +2,4 @@
 
 test
 
-test main
+test test_x
