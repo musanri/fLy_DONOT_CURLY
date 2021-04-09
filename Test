@@ -1,6 +1,0 @@
-//test
-#include<iostream>
-int main()
-{
-  cout("zehao dont blunder!");
-  }
