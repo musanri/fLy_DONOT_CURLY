@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>操作员列表</title>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+</head>
+<div class="x-nav">
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+        onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+
+
+
+                <div class="layui-card-header">
+                    <button class="layui-btn" onclick="xadmin.open('借书管理','readerborrowbooks.html',800,600)">
+                        <i class="layui-icon"></i>借书管理</button></div>
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn" onclick="xadmin.open('还书管理','readerreturnbooks.html',800,600)">
+                        <i class="layui-icon"></i>还书管理</button></div>
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="test1" lay-filter="test"></table>
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn" onclick="xadmin.open('消除违规记录','cancelblacklist.html',800,600)">
+                        <i class="layui-icon"></i>取消违规记录管理</button></div>
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="test2" lay-filter="test"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>
