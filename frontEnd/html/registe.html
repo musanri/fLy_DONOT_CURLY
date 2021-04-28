@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统注册</title>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/registe.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../js/jquery-3.3.1.js" charset="utf-8"></script>
+</head>
+
+<body class="login-bg">
+
+<div class="login layui-anim layui-anim-up">
+    <div class="message">图书管理系统注册</div>
+    <div id="darkbannerwrap"></div>
+    <div style="padding: 10px">
+        <form class="layui-form layui-form-pane"><br>
+            <div class="layui-form-item"><label class="layui-form-label">学号</label>
+                <div class="layui-input-inline"><input type="text" name="reader_id" required lay-verify="username"
+                                                       placeholder="请输入学号" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">密码</label>
+                <div class="layui-input-inline"><input type="password" name="password" required lay-verify="password"
+                                                       placeholder="请输入密码" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">重复密码</label>
+                <div class="layui-input-inline"><input type="password" name="password2" required lay-verify="password"
+                                                       placeholder="请输入密码" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline"><input type="text" name="reader_name" required lay-verify="required"
+                                                       placeholder="请输入姓名" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">性别</label>
+                <div class="layui-input-inline"><input type="text" name="gender" required lay-verify="required"
+                                                       placeholder="请输入性别" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">出生日期</label>
+                <div class="layui-input-inline"><input type="date" name="born" required lay-verify="required"
+                                                       placeholder="请输入年龄" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">学院</label>
+                <div class="layui-input-inline"><input type="text" name="department" required lay-verify="required"
+                                                       placeholder="请输入学院" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item"><label class="layui-form-label">邀请码</label>
+                <div class="layui-input-inline"><input type="password" name="power_number" required lay-verify="required"
+                                                       placeholder="请输入邀请码" class="layui-input"></div>
+            </div>
+            <div style="display: none" class="alert alert-danger" id="Response"></div>
+        </form>
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-normal layui-btn-fluid" onclick="login()">立即注册</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="./jquery.md5.min.js"></script>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+
+<script type="text/javascript">
+function dd() {
+
+}
+    function form_check() {
+        $("#Response").empty().hide();
+        if ($("[name='reader_id']").val().length !== 12) {
+            $("#Response").append('请输入正确的学号').show();
+            return false
+        }
+        if ($("[name='password']").val().length < 6) {
+            $("#Response").append('密码长度应大于6位').show();
+            return false
+        }
+        if ($("[name='password']").val() !== $("[name='password2']").val()) {
+            $("#Response").append('两次输入密码不同').show();
+            return false
+        }
+        if ($("[name='reader_name']").val().length === 0) {
+            $("#Response").append('姓名不能为空').show();
+            return false
+        }
+        if ($("[name='power_number']").val().length === 0) {
+            $("#Response").append('邀请码不能为空').show();
+            return false
+        }
+        return true
+    }
+
+    function login() {
+        $("#Response").empty().hide();
+        if (!form_check()) return;
+        $.post("register.php", {
+            reader_id:$("[name='reader_id']").val(),
+            reader_name: $("[name='reader_name']").val(),
+            reader_password: $.md5($("[name='password']").val()),
+            gender:$("[name='gender']").val(),
+            //全改age
+            born:$("[name='born']").val(),
+            department:$("[name='department']").val(),
+            power_number: $("[name='power_number']").val(),
+        }, function (result) {
+            result = JSON.parse(result);
+            var str;
+            if (result.status === 1) {
+                sessionStorage.setItem("uid",$("[name='reader_id']").val()),
+                sessionStorage.setItem("uname",$("[name='reader_name']").val()),
+                //parent.layer.close(parent.layer.getFrameIndex(window.name));
+                window.location.href="main1.html";
+                //parent.parent.success_to();
+                layui.use('layer', function () {
+                    layui.layer.msg('注册成功，已自动登录')
+                })
+            } else {
+                if (result.log === "already exist") {
+                    str = "学号已存在。"
+                } else if (result.log === 'ban') {
+                    str = "邀请码无效。"
+                }
+                $("#Response").append(str).show()
+            }
+        })
+    }</script>
+</body>
+</html>
