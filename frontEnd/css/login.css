@@ -6,16 +6,16 @@
 */
 .login-bg{
     /*background: #eeeeee url() 0 0 no-repeat;*/
-     background:url(../images/bg.png) no-repeat center;
+     background:url(../images/2.png) no-repeat center;
     background-size: cover;
     overflow: hidden;
 }
 .login{
     margin: 120px auto 0 auto;
-    min-height: 420px;
+    min-height: 380px;
     max-width: 420px;
     padding: 40px;
-    background-color: #ffffff;
+    background-color: #aff0f0;
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
@@ -98,6 +98,14 @@
 }
 .login hr.hr20 {
     height: 20px;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+.login hr.hr40 {
+    background-color: #aff0f0;
+    height: 40px;
     border: none;
     margin: 0px;
     padding: 0px;
