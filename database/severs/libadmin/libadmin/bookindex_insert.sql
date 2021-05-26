@@ -1,0 +1,1 @@
+INSERT INTO `libadmin`.`bookindex`(`isbn`, `book_name`, `price`, `amount`, `author`, `book_type`, `intro`) VALUES (1221212212121, '数学', 10, 100, '张三', '理工类', '好好学习');

@@ -1,0 +1,1 @@
+select a.isbn ,( SELECT count(*) FROM can_borrow_book WHERE can_borrow_book.isbn = a.isbn ) as left_book from reservation as a where reader_id = '201700150168';

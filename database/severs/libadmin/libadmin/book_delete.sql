@@ -1,0 +1,1 @@
+delete from book where book_id = '22' and isbn = '1' and lib_id = '1';

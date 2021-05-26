@@ -1,0 +1,1 @@
+SELECT * FROM `delivery` where arrived = 0;

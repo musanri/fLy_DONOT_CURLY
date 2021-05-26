@@ -1,0 +1,1 @@
+select * from violation where reader_id = '201700150168';

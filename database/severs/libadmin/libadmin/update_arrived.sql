@@ -1,0 +1,1 @@
+UPDATE delivery SET arrived = 1 WHERE delivery_id = '0000000003';

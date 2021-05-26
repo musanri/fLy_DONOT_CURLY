@@ -1,0 +1,100 @@
+{
+  "Version": 1.0,
+  "General": {
+    "AccessDBPassword": "",
+    "AccessLogonName": "",
+    "AccessLogonPassword": "",
+    "AccessSystemDBFile": "",
+    "BinaryDataEncoding": "Base64",
+    "BreakLines": "",
+    "Catalog": "",
+    "ContinueOnError": true,
+    "CreateAutoInc": false,
+    "DateDelimiter": "/",
+    "DateOrder": "DMY",
+    "DateTimeOrder": "DateTime",
+    "DecimalSymbol": ".",
+    "Encoding": 65001,
+    "FieldDelimiter": "Tab",
+    "FieldNameRow": 1,
+    "FieldSeparationType": "Delimited",
+    "FirstDataRow": 2,
+    "FourDigitYears": true,
+    "IgnoreForeignKeyConstraint": false,
+    "ImportDeletedRecords": false,
+    "ImportMode": "Append",
+    "ImportType": "Excel",
+    "IncludeTagAttributesAsTableField": false,
+    "IncludeUniqueIndexFKey": false,
+    "JsonTagIdentifierObj": {
+      "JsonTagName": "",
+      "JsonParentTagName": "",
+      "JsonTagLevel": 0,
+      "JsonTagType": "Object"
+    },
+    "LastDataRow": 20,
+    "Project": "",
+    "ProjectOwnerNavicatID": "",
+    "RecordDelimiter": "CRLF",
+    "RunMultipleQueriesInEachExecution": true,
+    "Schema": "libadmin",
+    "Server": "libadmin",
+    "TextQualifier": "\"",
+    "ThousandSeparator": ",",
+    "TimeDelimiter": ":",
+    "UseEmptyStringAsNull": false,
+    "XMLTagIdentifier": ""
+  },
+  "ImportSources": [
+    {
+      "SourceFile": "C:\\Users\\de'l'l\\Desktop\\1.xlsx",
+      "SourceQueries": []
+    }
+  ],
+  "TableMappings": [
+    {
+      "ConditionalQuery": "",
+      "IsNewTable": false,
+      "IsUserDefinedQuery": false,
+      "SourceFile": "C:\\Users\\de'l'l\\Desktop\\1.xlsx",
+      "SourceSchema": "",
+      "SourceTableName": "Sheet1",
+      "TargetTableName": "book",
+      "FieldMappings": [
+        {
+          "FieldAutoIncrement": false,
+          "FieldIsNullable": true,
+          "FieldLength": 255,
+          "FieldScale": 0,
+          "FieldType": "varchar",
+          "IsKey": true,
+          "IsSelected": true,
+          "SourceFieldName": "id",
+          "TargetFieldName": "id"
+        },
+        {
+          "FieldAutoIncrement": false,
+          "FieldIsNullable": true,
+          "FieldLength": 255,
+          "FieldScale": 0,
+          "FieldType": "varchar",
+          "IsKey": false,
+          "IsSelected": true,
+          "SourceFieldName": "isbn",
+          "TargetFieldName": "isbn"
+        },
+        {
+          "FieldAutoIncrement": false,
+          "FieldIsNullable": true,
+          "FieldLength": 255,
+          "FieldScale": 0,
+          "FieldType": "varchar",
+          "IsKey": false,
+          "IsSelected": true,
+          "SourceFieldName": "lib_id",
+          "TargetFieldName": "lib_id"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+INSERT INTO `book`(`book_id`, `isbn`, `lib_id`) VALUES (25, 1, 1);
