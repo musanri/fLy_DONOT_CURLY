@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<!--登录注册的主页面部分-->
+<head>
+    <!-- INITIALIZATOION / 初始化 -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- TITLE OF SITE / 网站标题 -->
+    <title>图书管理系统系统</title>
+
+    <!-- LINT / 链接引用 -->
+    <link href="https://www.layuicdn.com/layui/css/layui.css" media="all" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <link href="https://www.layuicdn.com/layui/css/modules/layer/default/layer.css?v=3.1.1" id="layuicss-layer"
+          media="all" rel="stylesheet">
+
+    <link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+
+
+    <!-- 设定样式 -->
+    <style>
+        .footer {
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/xadmin.css">
+    <link href="https://iknowpc.bdimg.com/static/common/pkg/common.ab91678.css" rel="stylesheet" type="text/css">
+    <link href="https://iknowpc.bdimg.com/static/home/pkg/module.8200f4f.css" rel="stylesheet" type="text/css">
+    <link href="https://iknowpc.bdimg.com/static/common/widget/header-metis/header.39c9ddf.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://iknowpc.bdimg.com/static/common/widget/set-tag/set-tag.19ef791.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://iknowpc.bdimg.com/static/common/widget/task/task-last.3274afd.css" rel="stylesheet"
+          type="text/css">
+    <script src="https://iknowpc.bdimg.com/static/common/pkg/more.fe347ad.js" type="text/javascript"></script>
+    <script src="https://iknowpc.bdimg.com/static/home/pkg/module.487c735.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function mbar() {
+            var subject = document.form.m.value;
+        }
+    </script>
+    <script src="lib/layui/layui.js" charset="utf-8"></script>
+    <script src="js/jquery-3.3.1.js" charset="utf-8"></script>
+
+</head>
+<body class="login-bg">
+
+    <div class="login layui-anim layui-anim-up">
+        <div class="message">图书管理系统登录</div>
+        <div id="darkbannerwrap"></div>
+
+        <div id="login-div">
+            <button class="layui-btn-lg" onclick="Login()"
+                    style="width: 100%" type="button">
+                登录
+            </button>
+            <hr class="hr40">
+            <button class="layui-btn-lg" onclick="Register()"
+                    style="width: 100%" type="button">
+                注册
+            </button>
+        </div>
+
+    </div>
+
+</body>
+<!--基本js函数部分-->
+<script>
+    function Login() {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 2, title: '登录', anim: 2, content: 'html/login.html', area: ['400px', '600px'], end: function () {
+                }
+            })
+        })
+    }
+    function Register() {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 2, title: '注册', anim: 2, content: 'html/registe.html', area: ['500px', '700px'], end: function () {
+                }
+            })
+        })
+    }
+    function success_to() {
+        $.post("getdata.php", {}, function (result) {
+            result = JSON.parse(result);
+            if (result.status !== 0) {
+                $("#main-div").show();
+                $("#show-div").show();
+                $("#working-div").show();
+                $("#logout-div").show();
+                $("#login-div").hide();
+                $("#tips-div").hide();
+                $(".footer").hide();
+                $(".nav-menu-container").show();
+                $("#working-div").empty().append("<p class='par'>已登录。 学号：" + result.username + " 姓名：" + result.name + "</p>");
+                $("#tableData").empty();
+                for (var i = 0; i < result.list.length; i++) {
+                    var hassub = result.list[i].uid == null;
+                    $("#tableData").append("<tr><td>" + result.list[i].labname + "</td><td>" + result.list[i].timelim + "</td><td>" + (hassub ? "<p class='red-p'>未提交</p>" : "<p class='green-p'>已提交</p>") + "</td><td><div class=\"layui-upload\"><button type=\"button\" class=\"layui-btn" + (!hassub ? " layui-btn-disabled" : "") + " layui-btn-normal\" id=\"cho" + result.list[i].lid + "\">选择文件</button><button type=\"button\" class=\"layui-btn" + (!hassub ? " layui-btn-disabled" : "") + "\" id=\"sub" + result.list[i].lid + "\">开始上传</button></div></td></tr>")
+                }
+
+                $("#tableData2").empty();
+                for (var i = 0; i < result.exlist.length; i++) {
+                    var hassub = result.exlist[i].uid == null;
+                    $("#tableData2").append("<tr><td>" + result.exlist[i].labname + "</td><td>" + result.exlist[i].timelim + "</td><td>" + (hassub ? "<p class='red-p'>未按时提交，请自行交给助教。</p>" : "<p class='green-p'>已按时提交</p>") + "</td></tr>")
+                }
+                upload_init(result)
+            }
+        })
+    }
+</script>

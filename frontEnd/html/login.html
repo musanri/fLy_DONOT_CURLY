@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,14 +34,14 @@
 
     function form_check() {
     $("#Response").empty().hide();
-    if ($("[name='reader_id']").val().length !== 2) {
-        $("#Response").append('请输入正确的学号').show();
-        return false
-    }
-    if ($("[name='reader_password']").val().length < 6) {
-        $("#Response").append('密码长度应大于6位').show();
-        return false
-    }
+    //if ($("[name='reader_id']").val().length !== 2) {
+    //    $("#Response").append('请输入正确的学号').show();
+    //    return false
+    //}
+    //if ($("[name='reader_password']").val().length < 6) {
+    //    $("#Response").append('密码长度应大于6位').show();
+    //    return false
+    //}
     return true
 }
 function login() {
