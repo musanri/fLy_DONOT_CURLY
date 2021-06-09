@@ -14,11 +14,11 @@
 <div style="padding: 10px">
     <form class="layui-form layui-form-pane"><br>
         <div class="layui-form-item"><label class="layui-form-label">学号</label>
-            <div class="layui-input-inline"><input type="text" name="reader_id" required lay-verify="required"
+            <div class="layui-input-inline"><input type="text" name="userID" required lay-verify="required"
                                                    placeholder="请输入用户名" class="layui-input"></div>
         </div>
         <div class="layui-form-item"><label class="layui-form-label">密码</label>
-            <div class="layui-input-inline"><input type="password" name="reader_password" required lay-verify="required"
+            <div class="layui-input-inline"><input type="password" name="userPassword" required lay-verify="required"
                                                    placeholder="请输入密码" class="layui-input"></div>
         </div>
         <div style="display: none" class="alert alert-danger" id="Response"></div>
@@ -34,11 +34,11 @@
 
     function form_check() {
     $("#Response").empty().hide();
-    //if ($("[name='reader_id']").val().length !== 2) {
+    //if ($("[name='userID']").val().length !== 2) {
     //    $("#Response").append('请输入正确的学号').show();
     //    return false
     //}
-    //if ($("[name='reader_password']").val().length < 6) {
+    //if ($("[name='userPassword']").val().length < 6) {
     //    $("#Response").append('密码长度应大于6位').show();
     //    return false
     //}
@@ -47,26 +47,34 @@
 function login() {
     $("#Response").empty().hide();
     if (!form_check()) return;
-    $.post("login.php", {
-        reader_id: $("[name='reader_id']").val(),
-        reader_password: $.md5($("[name='reader_password']").val()),
-    }, function (result) {
+    str={
+        userID: $("[name='userID']").val(),
+        userPassword: $.md5($("[name='userPassword']").val()),
+    }
+    $.post("http://localhost:8000/api/LoginServlet/",JSON.stringify(str) , function (result) {
+        //window.location.href="./host_home.html";
         result = JSON.parse(result);
         var str;
         if (result.status === 1) {
-            sessionStorage.setItem("reader_id",$("[name='reader_id']").val()),
+            sessionStorage.setItem("userID",$("[name='userID']").val()),
             layui.use('layer', function () {
                 layui.layer.msg('登录成功');
             });
-
+            parent.window.location.href="main1.html";
             window.location.href="main1.html";
         } else {
-            if (result.log === "no such user") {
-                str = "用户不存在。"
-            } else if (result.log === 'wrong password') {
-                str = "密码错误。"
-            }
-            $("#Response").append(str).show()
+            parent.window.location.href="./host_home.html";
+            layer.close();
+            //window.location.href="./host_home.html";
+            layui.use('layer', function () {
+                layui.layer.msg(result.msg);
+            });
+            // if (result.log === "no such user") {
+            //     str = "用户不存在。"
+            // } else if (result.log === 'wrong password') {
+            //     str = "密码错误。"
+            // }
+           // $("#Response").append(str).show()
         }
     })
 }</script>
