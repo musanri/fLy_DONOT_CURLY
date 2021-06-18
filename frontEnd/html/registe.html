@@ -92,7 +92,7 @@ function dd() {
     function login() {
         $("#Response").empty().hide();
         if (!form_check()) return;
-        $.post("register.php", {
+        str={
             reader_id:$("[name='reader_id']").val(),
             reader_name: $("[name='reader_name']").val(),
             reader_password: $.md5($("[name='password']").val()),
@@ -101,7 +101,8 @@ function dd() {
             born:$("[name='born']").val(),
             department:$("[name='department']").val(),
             power_number: $("[name='power_number']").val(),
-        }, function (result) {
+        }
+        $.post("register.php", JSON.stringify(str), function (result) {
             result = JSON.parse(result);
             var str;
             if (result.status === 1) {
