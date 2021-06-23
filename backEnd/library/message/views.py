@@ -25,7 +25,6 @@ def LoginServlet(request):
         userEX = models.User.objects.filter(userID = userID)
         if userEX.exists() == 0 :
             dic['status'] = 0
-            dic['userID'] = "__ERROR__"
             dic['msg'] = "用户不存在"
             dic = json.dumps(dic)
             return HttpResponse(dic)
@@ -35,7 +34,6 @@ def LoginServlet(request):
         if userX.userPassword != userPassword :
             print(userX.userPassword)
             dic['status'] = 0
-            dic['userID'] = "__ERROR__"
             dic['msg'] = "密码错误"
             dic = json.dumps(dic)
             return HttpResponse(dic)
@@ -46,7 +44,6 @@ def LoginServlet(request):
         return HttpResponse(dic)
     else :
         dic['status'] = 0
-        dic['userID'] = "__ERROR__"
         dic['msg'] = "请求错误"
         dic = json.dumps(dic)
         return HttpResponse(dic)

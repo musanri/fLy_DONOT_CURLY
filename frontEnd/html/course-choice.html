@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- INITIALIZATOION / 初始化 -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件 -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <!-- END OF INIT -->
+    <!-- TITLE OF SITE / 网站标题 -->
+    <title>学生信息管理系统</title>
+    <!-- ICON OF SITE / 小图标 -->
+    <link rel="icon" href="../images/SDU-ico.ico">
+
+    <!-- Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 设定样式 -->
+    <link href="../pattern/stylize.css" type="text/css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('../images/SDU-background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <!-- 设定函数 -->
+    <script type="text/javascript" src="../pattern/functions.js"></script>
+    <script type="text/javascript" src="../pattern/courseFuncs.js"></script>
+    <script>
+    </script>
+
+    <!-- 执行函数 -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var userID = sessionStorage.getItem("userID");
+            if (userID == null) {
+                userID = "无名氏";
+            }
+            document.getElementById("userID_nav").innerHTML = userID;
+            PushDown_menu(1, 3);
+            Init_courseChoice();
+            $("#courseChoice_table").on("click", ":button", function (event) {
+                Submit_courseChoice($(this).closest("tr").find("td").eq(0).text(),$(this).closest("tr").find("td").eq(1).text());
+            })
+            /*
+            //测试
+            var tempstr = "";
+            for (var i = 1; i <= 1; i++) {
+                tempstr += ("<tr><td>" + "10001" + "</td>");
+                tempstr += ("<td>" + "数据库技术基础" + "</td>");
+                tempstr += ("<td>" + "2019-2020" + "</td>");
+                tempstr += ("<td>" + "上半学期" + "</td>");
+                tempstr += ("<td>" + "梁文革" + "</td>");
+                tempstr += ("<td>" + "高级程序设计" + "</td>");
+                tempstr += ("<td>" + "4" + "</td>");
+                tempstr += ("<td><button type=\"button\" class=\"btn btn-xs\">选课</button></td></tr>");
+            }
+            $("#courseChoice_table").append(tempstr);
+            
+            $("#courseChoice_table").on("click", ":button", function (event) {
+                alert($(this).closest("tr").find("td").eq(0).text());
+            })
+            //END
+            */
+        })
+
+    </script>
+
+</head>
+<body>
+
+    <!-- 主体内容 -->
+    <section class="bodyerOuter">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 grid-title">
+                <span class="glyphicon glyphicon-check" aria-hidden="true">&nbsp;</span>选课
+            </div>
+        </div>
+        <table class="table tableBackground table-bordered table-hover" id="courseChoice_table">
+            <tr>
+                <th>课程号</th>
+                <th>开课号</th>
+                <th>课程名称</th>
+                <th>年度</th>
+                <th>学期</th>
+                <th>教师</th>
+                <th>先导课</th>
+                <th>学分</th>
+                <th>选择该课</th>
+            </tr>
+
+        </table>
+        <p class="text-center"> 已到达表尾 </p>
+    </section>
+
+    <!-- 页首导航栏 -->
+    <section class="navUpper">
+        <ul class="nav nav-pills">
+            <!-- 校徽 -->
+            <a href="http://www.sdu.edu.cn/">
+                <img width="38" height="38" class="img-circle" alt="Load Fail" src="../../images/SDU-logo.png">
+            </a>
+            <!-- 标题 -->
+            <strong style="font-size:20px; letter-spacing:8px; color:rgb(255, 255, 255)">
+                &nbsp;&nbsp;学生信息管理系统
+            </strong>
+            <!-- 个人中心按钮 -->
+            <li role="presentation" class="pull-right text-center dropdown nav-inactive" style="min-width: 100px;">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong id="userID_nav">个人中心</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 100px;">
+                    <li class="text-center">
+                        <a class="list-inactive" href="home.html">
+                            <strong>个人中心</strong>
+                        </a>
+                    </li>
+                    <li class="text-center">
+                        <a class="list-inactive" href="home-modificat.html">
+                            <strong>修改信息</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 左侧导航栏 -->
+    <section class="navLefter">
+        <ul class="nav nav-pills nav-stacked text-right">
+            <!-- 课程 -->
+            <li id="navList-1" role="presentation" class="dropdown nav-active" onclick=PushDown_menu(1,3)>
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong>课程</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 0; width: 100%;">
+                    <li class="text-right">
+                        <a class="list-inactive" href="course-chosen.html">
+                            <strong>已选课程</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-active" href="course-choice.html">
+                            <strong>选课</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="course-drop.html">
+                            <strong>退课</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- 成绩 -->
+            <li id="navList-2" role="presentation" class="dropdown nav-inactive" onclick=PushDown_menu(2,2)>
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong>成绩</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 0; width: 100%;">
+                    <li class="text-right">
+                        <a class="list-inactive" href="score-score.html">
+                            <strong>成绩查询</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="score-credit.html">
+                            <strong>学分查询</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- 奖惩 -->
+            <li id="navList-3" role="presentation" class="dropdown nav-inactive" onclick=PushDown_menu(3,2)>
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong>奖惩</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 0; width: 100%;">
+                    <li class="text-right">
+                        <a class="list-inactive" href="rop-rewards.html">
+                            <strong>所获荣誉</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="rop-punishment.html">
+                            <strong>所受处分</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+        </ul>
+    </section>
+
+    <section id="footer"></section>
+
+</body>
+</html>
