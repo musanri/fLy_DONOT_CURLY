@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- INITIALIZATOION / 初始化 -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件 -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <!-- END OF INIT -->
+    
+    <!-- TITLE OF SITE / 网站标题 -->
+    <title>学生信息管理系统</title>
+    <!-- ICON OF SITE / 小图标 -->
+    <link rel="icon" href="../images/SDU-ico.ico">
+
+    <!-- Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 设定样式 -->
+    <link href="../pattern/stylize.css" type="text/css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('../images/SDU-background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <!-- 设定函数 -->
+    <script type="text/javascript" src="../pattern/functions.js"></script>
+    <script type="text/javascript" src="../pattern/coursemngFuncs.js"></script>
+    <script>
+    </script>
+
+    <!-- 执行函数 -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var userID = sessionStorage.getItem("userID");
+            if (userID == null) {
+                userID = "无名氏";
+            }
+            document.getElementById("userID_nav").innerHTML = userID;
+            PushDown_menu(4, 3);
+            Init_courseBegSub();
+
+        })
+
+    </script>
+
+</head>
+<body>
+
+    <!-- 主体内容 -->
+    <section class="bodyerOuter container-fluid">
+        <div class="row">
+            <div class="col-md-1 col-sm-1 grid-null"></div>
+            <div class="col-md-6 col-sm-6 grid-title">
+                <span class="glyphicon glyphicon-book" aria-hidden="true">&nbsp;&nbsp;</span>课程开课
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1 grid-null"></div>
+            <div class="col-md-2 col-sm-2 grid-lab">                课程号</div>
+            <div class="col-md-3 col-sm-7 grid-det" id="cour-cid"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1 grid-null"></div>
+            <div class="col-md-2 col-sm-2 grid-lab">                课程名称</div>
+            <div class="col-md-3 col-sm-7 grid-det" id="cour-cname"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1 grid-null"></div>
+            <div class="col-md-2 col-sm-2 grid-lab">                学分</div>
+            <div class="col-md-3 col-sm-7 grid-det" id="cour-cre"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1 grid-null"></div>
+            <div class="col-md-2 col-sm-2 grid-lab">                先导课</div>
+            <div class="col-md-3 col-sm-7 grid-det" id="cour-fid"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1 grid-null"></div>
+            <div class="col-md-2 col-sm-2 grid-lab">                开课年度</div>
+            <input class="col-md-3 col-sm-7 grid-det" type="text" id="cour-year">
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1 grid-null"></div>
+            <div class="col-md-2 col-sm-2 grid-lab">                开课学期</div>
+            <input class="col-md-5 col-sm-7 grid-det" type="text" id="cour-term" placeholder="上半学期、下半学期、暑假学期、寒假学期 分别对应 1、2、3、4">
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-sm-10 grid-null"></div>
+            <div class="col-md-3 col-sm-7 grid-null"></div>
+            <button type="button" class="col-md-2 col-sm-3 grid-submit" onclick="Submit_courseBeg()">
+                <span>开课</span>
+            </button>
+        </div>
+
+    </section>
+
+    <!-- 页首导航栏 -->
+    <section class="navUpper">
+        <ul class="nav nav-pills">
+            <!-- 校徽 -->
+            <a href="http://www.sdu.edu.cn/">
+                <img width="38" height="38" class="img-circle" alt="Load Fail" src="../../images/SDU-logo.png">
+            </a>
+            <!-- 标题 -->
+            <strong style="font-size:20px; letter-spacing:8px; color:rgb(255, 255, 255)">
+                &nbsp;&nbsp;学生信息管理系统
+            </strong>
+            <!-- 个人中心按钮 -->
+            <li role="presentation" class="pull-right text-center dropdown nav-inactive" style="min-width: 100px;">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong id="userID_nav">个人中心</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 100px;">
+                    <li class="text-center">
+                        <a class="list-inactive" href="home.html">
+                            <strong>个人中心</strong>
+                        </a>
+                    </li>
+                    <li class="text-center">
+                        <a class="list-inactive" href="home-modificat.html">
+                            <strong>修改信息</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 左侧导航栏 -->
+    <section class="navLefter">
+        <ul class="nav nav-pills nav-stacked text-right">
+            <!-- 课程信息管理 -->
+            <li id="navList-4" role="presentation" class="dropdown nav-active" onclick=PushDown_menu(4,3)>
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong>课程信息管理</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 0; width: 100%;">
+                    <li class="text-right">
+                        <a class="list-inactive" href="coursemng-increase.html">
+                            <strong>新增课程</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-active" href="coursemng-begins.html">
+                            <strong>课程开课</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="coursemng-modificat.html">
+                            <strong>课程修改</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- 学生信息管理 -->
+            <li id="navList-5" role="presentation" class="dropdown nav-inactive" onclick=PushDown_menu(5,4)>
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong>学生信息管理</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 0; width: 100%;">
+                    <li class="text-right">
+                        <a class="list-inactive" href="studentmng-increase.html">
+                            <strong>注册学生信息</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="studentmng-reward.html">
+                            <strong>录入荣誉</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="studentmng-punish.html">
+                            <strong>录入处分</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="studentmng-inscore.html">
+                            <strong>录入成绩</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- 院系信息管理 -->
+            <li id="navList-6" role="presentation" class="dropdown nav-inactive" onclick=PushDown_menu(6,4)>
+                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong>院系信息管理</strong> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="min-width: 0; width: 100%;">
+                    <li class="text-right">
+                        <a class="list-inactive" href="major-increase.html">
+                            <strong>新设专业</strong>
+                        </a>
+                    </li>
+                    <li class="text-right">
+                        <a class="list-inactive" href="major-modificat.html">
+                            <strong>修改专业信息</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section id="footer"></section>
+
+</body>
+</html>
